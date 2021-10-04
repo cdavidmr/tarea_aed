@@ -109,7 +109,7 @@ std::string Blockchain::pop(){
     chain = temp->next;
     if(count == 1) last = nullptr;
     count--;
-    return " \nData: " + temp->data + "\n";
+    return " \nData: ", temp->data, "\n";
 }
 
 std::string Blockchain::peek(){
