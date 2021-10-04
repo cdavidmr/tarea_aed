@@ -57,7 +57,14 @@ bool Blockchain::empty(){
 }
 
 void Blockchain::clear(){
-  Block *b = new Block();
+  if (empty())
+    throw std::runtime_error("[WARN] :: Empty Blockchain");
+  for (unsigned i = 0; i < count; i++) {
+    Block *temp = last;
+    last = last->prev;
+    count--;
+    delete temp;
+  }
 }
 
 void Blockchain::push(std::string new_data) {
