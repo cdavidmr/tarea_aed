@@ -60,7 +60,7 @@ void Blockchain::clear(){
   if (empty())
     throw std::runtime_error("[WARN] :: Empty Blockchain");
   int size_b = count;
-  for (unsigned i = 0; i < size_b; i++) {
+  for (int i = 0; i < size_b; i++) {
     Block *temp = last;
     last = last->prev;
     count--;
@@ -72,22 +72,26 @@ void Blockchain::push(std::string new_data) {
   if (new_data.empty() || new_data.size() < 2)
     throw std::runtime_error("[ERROR] :: push: can't push data empty or min two character");
   Block *b = new Block(new_data);
-  if (empty()) {
+  if (count == 0) {
     chain = b;
     last  = b;
     b->prev = b;
     count++;
+    std::cout << "Creando chain...\n" << "count : " << count << std::endl;
   } else {
-      b->prev = last;
+      std::cout << "Creando bloque: " << count;
+      b->prev =last;
       if(last->next == nullptr) {
         last->next = b;
       }
       b->ID_prev = last->calcID();
       last = b;
       count++;
+      std::cout << "Se creo bloque con datos: \n" << b << "count : " << count << std::endl;
       if (b->verifyBlock())
         throw std::runtime_error("[ERROR] :: Invalid Id prev not match!");
   }
+  Blockchain(*this);
 }
 
 /*
@@ -109,7 +113,7 @@ std::string Blockchain::pop(){
 std::string Blockchain::peek(){
   if (empty())
     throw std::runtime_error("[WARN] :: Empty Blockchain");
-  return "\nID: ", last->ID, "\nID_Prev: ", last->ID_prev, " \nData: ", last->data, "\n";
+  return "\nID: "+ last->ID, "\nID_Prev: ", last->ID_prev, " \nData: ", last->data;
 }
 
 void Blockchain::peek_all(){
