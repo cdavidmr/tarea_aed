@@ -83,7 +83,7 @@ void Blockchain::push(std::string new_data) {
     b->prev = b;
     count++;
   } else {
-      b->prev =last;
+      b->prev = last;
       last->next = nullptr;
       if(last->next == nullptr) {
         last->next = b;
@@ -122,11 +122,12 @@ void Blockchain::peek_all(){
   if (empty())
     throw std::runtime_error("[WARN] :: Empty Blockchain");
   Block *temp = last;
+  std::cout << "\n ....Count: " << count << std::endl;
   for (unsigned i = 0; i < count; i++) {
     Block *temp_prev = temp->prev;
     int new_prev_Id = temp_prev->calcID();
     if (new_prev_Id != temp->ID_prev) {
-      std::cout << "\nID: " << last->ID << "\nID_Prev: " << last->ID_prev << " \nData: " << last->data << std::endl;
+      std::cout << "\nID: " << temp->ID << "\nID_Prev: " << temp->ID_prev << " \nData: " << temp->data << std::endl;
     }
     temp = temp_prev;
   }
@@ -140,7 +141,7 @@ void Blockchain::verify(){
     Block *temp_prev = temp->prev;
     int new_prev_Id = temp_prev->calcID();
     if (new_prev_Id != temp->ID_prev) {
-      std::cout << "[WARN] :: BlockChain position [" << count << "] with error" << std::endl;
+      std::cout << "[WARN] :: BlockChain position [" << i << "] with error" << std::endl;
     }
     temp = temp_prev;
   }
