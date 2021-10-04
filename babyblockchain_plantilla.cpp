@@ -57,12 +57,26 @@ bool Blockchain::empty(){
 }
 
 void Blockchain::clear(){
-
+  Block *b = new Block();
 }
 
 void Blockchain::push(std::string new_data) {
-  Block *b = new Block;
-  if(b->ID_prev != b->)
+  if (new_data.empty() || new_data.size() < 2)
+    throw std::runtime_error("[ERROR] :: push: can't push data empty or min two character");
+  Block *b = new Block(new_data);
+  if (empty()) {
+    chain = b;
+    last  = b;
+    b->prev = b;
+    count++;
+  } else {
+      b->prev = last;
+      last->next = b;
+      b->ID_prev = last->calcID();
+      count++;
+      if (b->verifyBlock())
+        throw std::runtime_error("[ERROR] :: Invalid Id prev not match!");
+  }
 }
 
 std::string Blockchain::pop(){
@@ -75,15 +89,27 @@ std::string Blockchain::pop(){
 }
 
 std::string Blockchain::peek(){
-
+  if (empty())
+    throw std::runtime_error("[WARN] :: Empty Blockchain");
+  return "\nID: ", last->ID, "\nID_Prev: ", last->ID_prev, " \nData: ", last->data, "\n";
 }
 
 void Blockchain::peek_all(){
-
+  if (empty())
+    throw std::runtime_error("[WARN] :: Empty Blockchain");
 }
 
 void Blockchain::verify(){
-
+  if (empty())
+    throw std::runtime_error("[WARN] :: Empty Blockchain");
+  for (unsigned i = 0; i < count; i++) {
+    Block *temp = last;
+    Block *temp_prev = last->prev;
+    int new_prev_Id = temp_prev->calcID();
+    if (new_prev_Id != temp->ID_prev) {
+      std::cout << "[WARN] :: BlockChain position [" << count << "] with error";
+    }
+  }
 }
 
 //***HACKS*********************************************
