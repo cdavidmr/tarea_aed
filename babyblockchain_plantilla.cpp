@@ -82,9 +82,7 @@ void Blockchain::push(std::string new_data) {
     last  = b;
     b->prev = b;
     count++;
-    std::cout << "Creando chain...\n" << "count : " << count << std::endl;
   } else {
-      std::cout << "Creando bloque: " << count;
       b->prev =last;
       last->next = nullptr;
       if(last->next == nullptr) {
@@ -93,7 +91,6 @@ void Blockchain::push(std::string new_data) {
       b->ID_prev = last->calcID();
       last = b;
       count++;
-      std::cout << "Se creo bloque con datos: \n" << b->data << "count : " << count << std::endl;
       if (b->verifyBlock())
         throw std::runtime_error("[ERROR] :: Invalid Id prev not match!");
   }
@@ -124,18 +121,28 @@ std::string Blockchain::peek(){
 void Blockchain::peek_all(){
   if (empty())
     throw std::runtime_error("[WARN] :: Empty Blockchain");
+  Block *temp = last;
+  for (unsigned i = 0; i < count; i++) {
+    Block *temp_prev = temp->prev;
+    int new_prev_Id = temp_prev->calcID();
+    if (new_prev_Id != temp->ID_prev) {
+      std::cout << "\nID: " << last->ID << "\nID_Prev: " << last->ID_prev << " \nData: " << last->data << std::endl;
+    }
+    temp = temp_prev;
+  }
 }
 
 void Blockchain::verify(){
   if (empty())
     throw std::runtime_error("[WARN] :: Empty Blockchain");
-  for (unsigned i = 0; i < count; i++) {
     Block *temp = last;
-    Block *temp_prev = last->prev;
+  for (unsigned i = 0; i < count; i++) {
+    Block *temp_prev = temp->prev;
     int new_prev_Id = temp_prev->calcID();
     if (new_prev_Id != temp->ID_prev) {
       std::cout << "[WARN] :: BlockChain position [" << count << "] with error" << std::endl;
     }
+    temp = temp_prev;
   }
 }
 
