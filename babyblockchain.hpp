@@ -33,7 +33,7 @@ private:
     copy constructor*/
   Blockchain(const Blockchain &value);
 
-  Blockchain& operator=(const Blockchain &rhs) { return *this; }
+  //Blockchain& operator=(const Blockchain &rhs) { return *this; }
 
 public:
   /*

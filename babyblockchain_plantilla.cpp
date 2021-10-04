@@ -109,13 +109,14 @@ std::string Blockchain::pop(){
     chain = temp->next;
     if(count == 1) last = nullptr;
     count--;
-    return " \nData: ", temp->data, "\n";
+    return " \nData: " + temp->data + "\n";
 }
 
 std::string Blockchain::peek(){
   if (empty())
     throw std::runtime_error("[WARN] :: Empty Blockchain");
-  return "\nID: "+ last->ID, "\nID_Prev: ", last->ID_prev, " \nData: ", last->data;
+  std::string out = "\nID: "+ std::to_string(last->ID) + "\nID_Prev: " + std::to_string(last->ID_prev) + " \nData: " + last->data;
+  return out;
 }
 
 void Blockchain::peek_all(){
