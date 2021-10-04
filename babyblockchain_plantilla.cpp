@@ -124,7 +124,7 @@ void Blockchain::peek_all(){
   Block *temp = last;
   Block *temp_prev;
   for (unsigned i = 0; i < count; i++) {
-    std::cout << "\nBloque [" << count-i << "]\n" << "\nID: " << temp->ID << "\nID_Prev: " << temp->ID_prev << " \nData: " << temp->data << std::endl;
+    std::cout << "\nBloque [" << count-i << "]:" << "\nID: " << temp->ID << "\nID_Prev: " << temp->ID_prev << " \nData: " << temp->data << std::endl;
     temp_prev = temp->prev;
     temp = temp_prev;
   }
