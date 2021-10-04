@@ -142,7 +142,7 @@ void Blockchain::verify(){
     temp_prev = temp->prev;
     int new_prev_Id = temp_prev->calcID();
     if (new_prev_Id != temp->ID_prev) {
-      count ++;
+      cnt++;
       std::cout << "[INFO] :: BlockChain position [" << count-i << "] with error" << std::endl;
     }
     temp = temp_prev;
