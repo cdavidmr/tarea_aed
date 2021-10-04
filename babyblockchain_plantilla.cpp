@@ -137,17 +137,17 @@ void Blockchain::verify(){
     throw std::runtime_error("[WARN] :: Empty Blockchain");
   Block *temp = last;
   Block *temp_prev;
-  int cnt = 0;
+  int cnt_err = 0;
   for (unsigned i = 1; i < count; i++) {
     temp_prev = temp->prev;
     int new_prev_Id = temp_prev->calcID();
     if (new_prev_Id != temp->ID_prev) {
-      cnt++;
-      std::cout << "[INFO] :: BlockChain position [" << count-i << "] with error" << std::endl;
+      cnt_err++;
+      std::cout << "[WARN] :: BlockChain position [" << count-i << "] with Error!" << std::endl;
     }
     temp = temp_prev;
   }
-  if(count == 0)
+  if(cnt_err == 0)
       std::cout << "[INFO] :: BlockChain data is Okay!" << std::endl;
 }
 
