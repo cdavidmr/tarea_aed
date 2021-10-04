@@ -115,8 +115,7 @@ std::string Blockchain::pop(){
 std::string Blockchain::peek(){
   if (empty())
     throw std::runtime_error("[WARN] :: Empty Blockchain");
-  std::string out = "\nID: "+ std::to_string(last->ID) + "\nID_Prev: " + std::to_string(last->ID_prev) + " \nData: " + last->data;
-  return out;
+  return "\nID: " + last->ID, "\nID_Prev: " + last->ID_prev, " \nData: " + last->data;
 }
 
 void Blockchain::peek_all(){
