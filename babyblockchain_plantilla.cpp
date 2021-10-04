@@ -124,7 +124,9 @@ void Blockchain::peek_all(){
   Block *temp = last;
   Block *temp_prev;
   for (unsigned i = 0; i < count; i++) {
-    std::cout << "\nBloque [" << count-i << "]:" << "\nID: " << temp->ID << "\nID_Prev: " << temp->ID_prev << " \nData: " << temp->data << std::endl;
+    std::cout << "\nBloque [" << count-i << "]:" << "\nID: " << temp->ID
+      << "\nID_Prev: " << temp->ID_prev << " \nData: " << temp->data
+      << "\nNext_Block: " << temp->next << "\nPrev_Block: " << temp->prev << std::endl;
     temp_prev = temp->prev;
     temp = temp_prev;
   }
@@ -135,14 +137,18 @@ void Blockchain::verify(){
     throw std::runtime_error("[WARN] :: Empty Blockchain");
   Block *temp = last;
   Block *temp_prev;
-  for (unsigned i = 0; i < count; i++) {
+  int cnt = 0;
+  for (unsigned i = 1; i < count; i++) {
     temp_prev = temp->prev;
     int new_prev_Id = temp_prev->calcID();
     if (new_prev_Id != temp->ID_prev) {
-      std::cout << "[WARN] :: BlockChain position [" << count-i << "] with error" << std::endl;
+      count ++;
+      std::cout << "[INFO] :: BlockChain position [" << count-i << "] with error" << std::endl;
     }
     temp = temp_prev;
   }
+  if(count == 0)
+      std::cout << "[INFO] :: BlockChain data is Okay!" << std::endl;
 }
 
 //***HACKS*********************************************
