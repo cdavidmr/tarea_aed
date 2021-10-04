@@ -35,6 +35,11 @@ std::ostream& operator<<(std::ostream &os, Block &b) {
   return os;
 }
 
+Blockchain::Blockchain(const Blockchain &value) {
+  chain = value.chain;
+  last  = value.last;
+  count = value.count;
+}
 
 //Blockchain-------------------------------------------
 Blockchain::Blockchain(){
@@ -81,17 +86,17 @@ void Blockchain::push(std::string new_data) {
   } else {
       std::cout << "Creando bloque: " << count;
       b->prev =last;
+      last->next = nullptr;
       if(last->next == nullptr) {
         last->next = b;
       }
       b->ID_prev = last->calcID();
       last = b;
       count++;
-      std::cout << "Se creo bloque con datos: \n" << b << "count : " << count << std::endl;
+      std::cout << "Se creo bloque con datos: \n" << b->data << "count : " << count << std::endl;
       if (b->verifyBlock())
         throw std::runtime_error("[ERROR] :: Invalid Id prev not match!");
   }
-  Blockchain(*this);
 }
 
 /*
@@ -129,7 +134,7 @@ void Blockchain::verify(){
     Block *temp_prev = last->prev;
     int new_prev_Id = temp_prev->calcID();
     if (new_prev_Id != temp->ID_prev) {
-      std::cout << "[WARN] :: BlockChain position [" << count << "] with error";
+      std::cout << "[WARN] :: BlockChain position [" << count << "] with error" << std::endl;
     }
   }
 }

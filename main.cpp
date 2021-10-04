@@ -11,7 +11,7 @@ int main() {
       std::cout << "Escriba el dato del bloque " << i << ": ";
       std::getline(std::cin, temp);
       chain.push(temp);
-      chain.pop();
+      //chain.pop();
     } while(int(temp.size()) < nblocks-1);
   }
 

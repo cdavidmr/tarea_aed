@@ -31,11 +31,7 @@ private:
 
   /*Make it ilegal to copy queues by defining an empty 
     copy constructor*/
-  Blockchain(const Blockchain &value) {
-    chain = value.chain;
-    last  = value.last;
-    count = value.count;
-  }
+  Blockchain(const Blockchain &value);
 
   Blockchain& operator=(const Blockchain &rhs) { return *this; }
 
