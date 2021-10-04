@@ -1,4 +1,4 @@
-#include "babyblockchain_plantilla.cpp"
+#include "babyblockchain.cpp"
 
 int main() {
   Blockchain chain;
