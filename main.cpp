@@ -1,4 +1,4 @@
-#include "babyblockchain.hpp"
+#include "babyblockchain_plantilla.cpp"
 
 int main() {
   Blockchain chain;
@@ -6,12 +6,13 @@ int main() {
   std::string temp;
 
   //Insertar 4 bloques en la cadena
-  for (unsigned i = 0; i < nblocks; i++) {
+  for (int i = 0; i < nblocks; i++) {
     do{
       std::cout << "Escriba el dato del bloque " << i << ": ";
       std::getline(std::cin, temp);
       chain.push(temp);
-    } while(temp.size() < nblocks-1);
+      chain.pop();
+    } while(int(temp.size()) < nblocks-1);
   }
 
   //Mostrar todos los elementos de la cadena

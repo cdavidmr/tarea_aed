@@ -20,7 +20,7 @@ Block::Block(std::string s) {
 int Block::verifyBlock() {
   if (prev->ID != ID_prev) {
     return 1;
-  }else if (ID != calcID()) {
+  } else if (ID != calcID()) {
     return 2;
   }
   return 0;
@@ -59,7 +59,8 @@ bool Blockchain::empty(){
 void Blockchain::clear(){
   if (empty())
     throw std::runtime_error("[WARN] :: Empty Blockchain");
-  for (unsigned i = 0; i < count; i++) {
+  int size_b = count;
+  for (unsigned i = 0; i < size_b; i++) {
     Block *temp = last;
     last = last->prev;
     count--;
@@ -78,21 +79,31 @@ void Blockchain::push(std::string new_data) {
     count++;
   } else {
       b->prev = last;
-      last->next = b;
+      if(last->next == nullptr) {
+        last->next = b;
+      }
       b->ID_prev = last->calcID();
+      last = b;
       count++;
       if (b->verifyBlock())
         throw std::runtime_error("[ERROR] :: Invalid Id prev not match!");
   }
 }
 
+/*
+* Method: pop
+* Usage: ValueType top = blockchain.pop();
+* ------------------------------------
+* Removes the top block from this blockchain and returns the data
+* stored there. This method signals an error if called on an empty blockchain.
+*/
 std::string Blockchain::pop(){
-    Block *b = chain;
-    chain = chain->next;
-    delete b;
-    if(count == 1)
-      last = nullptr;
+    Block *temp = chain;
+    delete chain;
+    chain = temp->next;
+    if(count == 1) last = nullptr;
     count--;
+    return " \nData: ", temp->data, "\n";
 }
 
 std::string Blockchain::peek(){

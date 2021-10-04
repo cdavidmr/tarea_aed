@@ -31,8 +31,9 @@ private:
 
   /*Make it ilegal to copy queues by defining an empty 
     copy constructor*/
-  Blockchain(const Blockchain &value) {}
-  
+  Blockchain(const Blockchain &value) {
+  }
+
   Blockchain& operator=(const Blockchain &rhs) { return *this; }
 
 public:
@@ -88,7 +89,7 @@ public:
    * Method: pop
    * Usage: ValueType top = blockchain.pop();
    * ------------------------------------
-   * Roves the top block from this blockchain and returns the data
+   * Removes the top block from this blockchain and returns the data
    * stored there. This method signals an error if called on an empty blockchain.
    */
   std::string pop();
