@@ -122,13 +122,10 @@ void Blockchain::peek_all(){
   if (empty())
     throw std::runtime_error("[WARN] :: Empty Blockchain");
   Block *temp = last;
-  std::cout << "\n ....Count: " << count << std::endl;
+  Block *temp_prev;
   for (unsigned i = 0; i < count; i++) {
-    Block *temp_prev = temp->prev;
-    int new_prev_Id = temp_prev->calcID();
-    if (new_prev_Id != temp->ID_prev) {
-      std::cout << "\nID: " << temp->ID << "\nID_Prev: " << temp->ID_prev << " \nData: " << temp->data << std::endl;
-    }
+    std::cout << "\nBloque [" << count-i << "]\n" << "\nID: " << temp->ID << "\nID_Prev: " << temp->ID_prev << " \nData: " << temp->data << std::endl;
+    temp_prev = temp->prev;
     temp = temp_prev;
   }
 }
@@ -136,12 +133,13 @@ void Blockchain::peek_all(){
 void Blockchain::verify(){
   if (empty())
     throw std::runtime_error("[WARN] :: Empty Blockchain");
-    Block *temp = last;
+  Block *temp = last;
+  Block *temp_prev;
   for (unsigned i = 0; i < count; i++) {
-    Block *temp_prev = temp->prev;
+    temp_prev = temp->prev;
     int new_prev_Id = temp_prev->calcID();
     if (new_prev_Id != temp->ID_prev) {
-      std::cout << "[WARN] :: BlockChain position [" << i << "] with error" << std::endl;
+      std::cout << "[WARN] :: BlockChain position [" << count-i << "] with error" << std::endl;
     }
     temp = temp_prev;
   }
